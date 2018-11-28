@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
@@ -20,6 +22,14 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ORM\
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage = "Le titre doit être au minimum {{ limit }} charactères",
+     * )
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     *
      */
     private $Title;
 
@@ -32,6 +42,28 @@ class Post
      * @ORM\Column(type="boolean")
      */
     private $IsBug;
+
+    /**
+     * @Gedmo\Slug(fields={"Title"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug): void
+    {
+        $this->slug = $slug;
+    }
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="post")
