@@ -70,6 +70,22 @@ class Post
      */
     private $comments;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $Resolved;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Status;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -143,6 +159,42 @@ class Post
                 $comment->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getResolved(): ?bool
+    {
+        return $this->Resolved;
+    }
+
+    public function setResolved(bool $Resolved): self
+    {
+        $this->Resolved = $Resolved;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->Status;
+    }
+
+    public function setStatus(string $Status): self
+    {
+        $this->Status = $Status;
 
         return $this;
     }

@@ -11,7 +11,7 @@ use Gedmo\Timestampable\Traits\Timestampable;
 class Comment
 {
     use Timestampable;
-
+    use SortablePosotion;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -44,6 +44,12 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $post;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
 
     public function getId(): ?int
     {
@@ -106,6 +112,18 @@ class Comment
     public function setPost(?Post $post): self
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }
