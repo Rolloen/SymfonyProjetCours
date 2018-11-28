@@ -22,14 +22,12 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @ORM\
-     * @Assert\Length(
-     *      min = 5,
-     *      minMessage = "Le titre doit être au minimum {{ limit }} charactères",
-     * )
      * @Assert\NotBlank
      * @Assert\NotNull
-     *
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage = "Le titre doit être au minimum {{ limit }} charactères"
+     * )
      */
     private $Title;
 

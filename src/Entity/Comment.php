@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\SortablePositionTrait;
+use App\Entity\Traits\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\Timestampable;
 
@@ -10,8 +12,8 @@ use Gedmo\Timestampable\Traits\Timestampable;
  */
 class Comment
 {
-    use Timestampable;
-    use SortablePosotion;
+    use TimestampableTrait;
+    use SortablePositionTrait;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
